@@ -7,8 +7,7 @@ import (
 )
 
 func mkvInfo(file string) string {
-	// TODO: Check with LookPath if mkvmerge is installed https://golang.org/pkg/os/exec/#example_LookPath
-	out, err := exec.Command(`C:\Users\padi\Downloads\mkvtoolnix\mkvmerge.exe`, "-i", file).Output()
+	out, err := exec.Command(mkvMerge, "-i", file).Output()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -16,7 +15,7 @@ func mkvInfo(file string) string {
 }
 
 func mkvSaveCover(file string, cover *os.File) {
-	err := exec.Command(`C:\Users\padi\Downloads\mkvtoolnix\mkvpropedit.exe`, file, "--attachment-name", "cover.jpg",
+	err := exec.Command(mkvPropEdit, file, "--attachment-name", "cover.jpg",
 		"--attachment-mime-type", "image/jpeg",
 		"--add-attachment", cover.Name()).Run()
 	if err != nil {

@@ -7,8 +7,7 @@ import (
 )
 
 func mp4Info(file string) string {
-	// TODO: Check with LookPath if AtomicParsley is installed https://golang.org/pkg/os/exec/#example_LookPath
-	out, err := exec.Command(`C:\Users\padi\Downloads\AtomicParsley-win32-0.9.0\AtomicParsley.exe`, file, "-t").Output()
+	out, err := exec.Command(atomicParsley, file, "-t").Output()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -16,7 +15,7 @@ func mp4Info(file string) string {
 }
 
 func mp4SaveCover(file string, cover *os.File) {
-	err := exec.Command(`C:\Users\padi\Downloads\AtomicParsley-win32-0.9.0\AtomicParsley.exe`, file, "--artwork", cover.Name(), "--overWrite").Run()
+	err := exec.Command(atomicParsley, file, "--artwork", cover.Name(), "--overWrite").Run()
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -1,8 +1,10 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"os"
+	"os/exec"
 
 	"github.com/magiconair/properties"
 	"github.com/ryanbradynd05/go-tmdb"
@@ -10,6 +12,9 @@ import (
 
 var tmdbAPI *tmdb.TMDb
 var imageBaseURL string
+var atomicParsley string
+var mkvMerge string
+var mkvPropEdit string
 
 func main() {
 	// Read token from properties file
@@ -44,9 +49,35 @@ func main() {
 
 	imageBaseURL = tmdbConf.Images.SecureBaseURL + posterSize
 
-	// TODO: Add two parameters -p folder to scan -e folder to exclude
-	root := `\\DS115\Movies`
-	files := scanMovies(root, "Kids")
+	// Find if AtomicParsley, mkvmerge and mkvpropedit are installed
+	atomicParsley, err = exec.LookPath("AtomicParsley")
+	if err != nil {
+		log.Fatal("AtomicParsley not found in path. Please install it.")
+	}
+
+	mkvPropEdit, err = exec.LookPath("mkvpropedit")
+	if err != nil {
+		log.Fatal("mkvpropedit not found in path. Please install it.")
+	}
+
+	mkvMerge, err = exec.LookPath("mkvmerge")
+	if err != nil {
+		log.Fatal("mkvmerge not found in path. Please install it.")
+	}
+
+	// Check for flags
+	var path string
+	var exclude string
+	flag.StringVar(&path, "p", "", "Path folder to scan for movies (required)")
+	flag.StringVar(&exclude, "e", "", "Regex to exclude from scan")
+	flag.Parse()
+
+	if path == "" {
+		flag.PrintDefaults()
+		os.Exit(1)
+	}
+
+	files := scanMovies(path, exclude)
 
 	var options = make(map[string]string)
 

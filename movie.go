@@ -39,6 +39,8 @@ func newMovie(file string) *movie {
 	if matches != nil {
 		m.name = strings.Title(strings.ToLower(strings.ReplaceAll(matches[1], ".", " ")))
 		m.year = matches[2]
+	} else {
+		return nil
 	}
 
 	return m
