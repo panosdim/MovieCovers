@@ -5,6 +5,26 @@ In order to find the cover art it uses the [TMDB API](https://developers.themovi
 
 ## Usage
 
+AutoTag can be run manually or installed an run periodically in a systemd compatible system.
+To run it manually use
+
+```
+$ autotag -p "/mnt/Movies" -e "^Test[0-9]"
+```
+
+AutoTag accepts the following two parameters:
+
+```
+-e string
+        Regex to exclude from scan
+-p string
+        Path to scan for movies (required)
+```
+
+## Installation
+
+In order to install use the install.sh script.
+
 ## Libraries Used
 
 -   [GO TMDB](https://github.com/ryanbradynd05/go-tmdb)

@@ -68,7 +68,7 @@ func main() {
 	// Check for flags
 	var path string
 	var exclude string
-	flag.StringVar(&path, "p", "", "Path folder to scan for movies (required)")
+	flag.StringVar(&path, "p", "", "Path to scan for movies (required)")
 	flag.StringVar(&exclude, "e", "", "Regex to exclude from scan")
 	flag.Parse()
 
