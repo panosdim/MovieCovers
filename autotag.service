@@ -1,0 +1,14 @@
+[Unit]
+Description=Script to start autotag
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5s
+User=root
+Environment=GIN_MODE=release
+WorkingDirectory=/opt/autotag
+ExecStart=/opt/autotag/autotag 
+
+[Install]
+WantedBy=multi-user.target
