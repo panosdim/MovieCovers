@@ -23,7 +23,8 @@ AutoTag accepts the following two parameters:
 
 ## Installation
 
-In order to install use the install.sh script.
+In order to install frist you need to build it with `$ go build -o autotag` and then install it `$ install.sh`.
+If you are on a Linux machine with systemd, installer will ask you if you want to run it every day at 03:00.
 
 ## Libraries Used
 
