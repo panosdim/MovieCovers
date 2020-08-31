@@ -23,7 +23,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 INSTALL_PATH=/opt/autotag
-SYSTEMD_PATH=/usr/lib/systemd/system
+SYSTEMD_PATH=/etc/systemd/system
 
 mkdir -p $INSTALL_PATH
 cp autotag $INSTALL_PATH
