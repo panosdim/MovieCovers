@@ -28,28 +28,29 @@ SYSTEMD_PATH=/etc/systemd/system
 mkdir -p $INSTALL_PATH
 cp autotag $INSTALL_PATH
 cp app.properties $INSTALL_PATH
+cp autotag.sh $INSTALL_PATH
 
 # Function to install systemd service
 function install_service {
     read -p "Provide the path to movies files that AutoTag will scan? " path
     cp autotag.service tmp.service
-    sed -i "s|<PATH>|-p $path|g" tmp.service
+    sed -i "s|<PATH>|$path|g" tmp.service
     read -p "Do you wish to provide a regex to exclude from scan? " yn
     case $yn in
         [Yy]* ) 
             read -p "Provide exclude regex? " regex; 
-            sed -i "s|<REGEX>|-e $regex|g" tmp.service;;
+            sed -i "s|<REGEX>|$regex|g" tmp.service;;
         [Nn]* ) sed -i 's/<REGEX>//g' tmp.service;;
         * ) echo "Please answer yes or no.";;
     esac
     mv tmp.service $SYSTEMD_PATH/autotag.service
     cp autotag.timer $SYSTEMD_PATH
 
-    systemctl start autotag.service
-    systemctl enable autotag.service
+    systemctl start autotag.timer
+    systemctl enable autotag.timer
 }
 
-read -p "Do you wish to install a systemd service that will run autotag every day at 03:00? " yn
+read -p "Do you wish to install a systemd service that will check for file changes and run autotag every 5 minutes? " yn
 case $yn in
     [Yy]* ) install_service;;
     [Nn]* ) exit;;

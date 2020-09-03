@@ -5,7 +5,7 @@ Description=Script to start autotag
 Type=simple
 User=root
 WorkingDirectory=/opt/autotag
-ExecStart=/opt/autotag/autotag <PATH> <REGEX>
+ExecStart=/opt/autotag/autotag.sh "<PATH>" "<REGEX>"
 
 [Install]
 WantedBy=multi-user.target
